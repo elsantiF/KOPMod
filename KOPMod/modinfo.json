@@ -1,0 +1,13 @@
+{
+    "mod_id": "kop_mod",
+    "author": "santif",
+    "name": "Kerbal Optimization Program",
+    "description": "A simple mod to increase the performance of KSP2",
+    "source": "https://github.com/elsantiF/KOPMod",
+    "version": "0.1",
+    "dependencies": [],
+    "ksp2_version": {
+        "min": "0.1",
+        "max": "*"
+    }
+}

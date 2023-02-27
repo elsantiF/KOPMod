@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>11</LangVersion>
+    <ImplicitUsings>true</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="dep_dlls\0Harmony.dll" />
+	<Reference Include="dep_dlls\Assembly-CSharp.dll" />
+	<Reference Include="dep_dlls\NewtonSoft.Json.dll" />
+    <Reference Include="dep_dlls\SpaceWarp.dll" />
+    <Reference Include="dep_dlls\UnityEngine.dll" />
+    <Reference Include="dep_dlls\UnityEngine.CoreModule.dll" />
+  </ItemGroup>
+</Project>
