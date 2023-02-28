@@ -1,13 +1,23 @@
 ﻿using HarmonyLib;
 using KSP.Rendering.Planets;
+using System.Reflection;
 
 namespace KOPMod.Patches
 {
-    [HarmonyPatch(typeof(PQS), "OnEnable")]
-    public static class KSPReconfig
+    public class PQSPatch : BasePatch
     {
-        [HarmonyPostfix]
-        static void Postfix(PQS __instance)
+        public PQSPatch()
+        {
+            this.originalMethod = typeof(PQS).GetMethod("OnEnable", BindingFlags.NonPublic | BindingFlags.Instance);
+        }
+
+        protected override void DoPatch()
+        {
+            var postfix = typeof(PQSPatch).GetMethod("Postfix");
+            KOPMod.harmony.Patch(originalMethod, postfix: new HarmonyMethod(postfix));
+        }
+
+        public static void Postfix(PQS __instance)
         {
             PQSGlobalSettings.SubdivData subdivData = new PQSGlobalSettings.SubdivData();
             subdivData.minLevel = 1;
@@ -18,8 +28,11 @@ namespace KOPMod.Patches
             PQSGlobalSettings.SubdivisionInfo subdivisionInfo = new PQSGlobalSettings.SubdivisionInfo();
             subdivisionInfo.subdivData = subdivData;
             __instance.settings.subdivisionInfo = subdivisionInfo;
+        }
 
-            KOPMod.logger.Info("Executed PQS.OnEnable");
+        public override string GetName()
+        {
+            return "PQSPatch";
         }
     }
 }

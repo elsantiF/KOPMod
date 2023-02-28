@@ -2,6 +2,7 @@ using SpaceWarp.API.Mods;
 using HarmonyLib;
 using System.Reflection;
 using UnityEngine;
+using KOPMod.Patches;
 
 namespace KOPMod
 {
@@ -10,14 +11,37 @@ namespace KOPMod
     {
 
         public static SpaceWarp.API.Logging.BaseModLogger logger;
+        public static Harmony harmony;
+
+        private bool openSettings = false;
+        private Rect window = new Rect(new Vector2(Screen.width, Screen.height) / 2, new Vector2(200, 200));
+
+        private static List<BasePatch> patchList = new List<BasePatch>();
 
         public override void OnInitialized()
         {
             logger = Logger;
             logger.Info("KOPMod is initialized");
-            Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+
+            harmony = new Harmony("santif.kopmod");
+
+            patchList.AddRange(new List<BasePatch>()
+            {
+                new NoAtmosphereScatterManager(),
+                new NoScaledCloudDataModelComponent(),
+                new NoShadowMapRenderer(),
+                new NoThrottleVFXManager(),
+                new NoVegetationSystemPro(),
+                new NoVolumeCloudManager(),
+                new NoVolumeCloudRenderer(),
+                new PQSPatch()
+            });
+
+            patchList.ForEach(patch => patch.Enabled = true);
+
             logger.Info("Patches Applied");
 
+			//WIP: Make this optional
             ChangeUnitySettings();
         }
 
@@ -34,6 +58,32 @@ namespace KOPMod
 
             RenderSettings.defaultReflectionResolution = 0;
             logger.Info("Changed Settings");
+        }
+
+        private void OnGUI()
+        {
+            if(openSettings) window = GUI.Window(0, window, DrawWindow, "KOP Settings");
+        }
+
+        private void DrawWindow(int id)
+        {
+            GUILayout.BeginVertical();
+            
+            foreach(var patch in patchList)
+            {
+                patch.Enabled = GUILayout.Toggle(patch.Enabled, patch.GetName());
+            }
+
+            GUILayout.EndVertical();
+
+            GUI.DragWindow(new Rect(0, 0, 1000, 20));
+        }
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.F1)) {
+                openSettings = !openSettings;
+            }
         }
     }
 }

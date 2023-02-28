@@ -13,5 +13,7 @@
     <Reference Include="dep_dlls\SpaceWarp.dll" />
     <Reference Include="dep_dlls\UnityEngine.dll" />
     <Reference Include="dep_dlls\UnityEngine.CoreModule.dll" />
+	<Reference Include="dep_dlls\UnityEngine.IMGUIModule.dll" />
+	<Reference Include="dep_dlls\UnityEngine.InputLegacyModule.dll" />
   </ItemGroup>
 </Project>
