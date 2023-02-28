@@ -14,7 +14,7 @@ namespace KOPMod
         public static Harmony harmony;
 
         private bool openSettings = false;
-        private Rect window = new Rect(new Vector2(Screen.width, Screen.height) / 2, new Vector2(200, 200));
+        private Rect window = new Rect(new Vector2(Screen.width, Screen.height) / 2, new Vector2(250, 350));
 
         private static List<BasePatch> patchList = new List<BasePatch>();
 
@@ -39,7 +39,7 @@ namespace KOPMod
 
             patchList.ForEach(patch => patch.Enabled = true);
 
-            logger.Info("Patches Applied");
+            ApplyPatches();
 
 			//WIP: Make this optional
             ChangeUnitySettings();
@@ -74,9 +74,29 @@ namespace KOPMod
                 patch.Enabled = GUILayout.Toggle(patch.Enabled, patch.GetName());
             }
 
+            if(GUILayout.Button("Apply Patches"))
+            {
+                ApplyPatches();
+            }
+
             GUILayout.EndVertical();
 
             GUI.DragWindow(new Rect(0, 0, 1000, 20));
+        }
+
+        private void ApplyPatches()
+        {
+            patchList.ForEach(patch => { 
+                if(patch.Enabled)
+                {
+                    patch.DoPatch();
+                }else
+                {
+                    patch.DoUnpatch();
+                }
+            });
+
+            logger.Info("Patches Applied");
         }
 
         private void Update()

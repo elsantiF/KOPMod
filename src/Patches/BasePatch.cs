@@ -7,8 +7,8 @@ namespace KOPMod.Patches
     {
         private bool _enabled;
 
-        protected abstract void DoPatch();
-        protected void DoUnpatch() 
+        public abstract void DoPatch();
+        public void DoUnpatch() 
         {
             KOPMod.harmony.Unpatch(originalMethod, HarmonyPatchType.All);
         }
@@ -16,19 +16,7 @@ namespace KOPMod.Patches
         public bool Enabled
         {
             get { return _enabled; }
-            set
-            {
-                _enabled = value;
-
-                if (_enabled)
-                {
-                    DoPatch();
-                }
-                else 
-                { 
-                    DoUnpatch(); 
-                }
-            }
+            set { _enabled = value; }
         }
 
         public abstract string GetName();

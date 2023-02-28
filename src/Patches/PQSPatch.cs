@@ -11,7 +11,7 @@ namespace KOPMod.Patches
             this.originalMethod = typeof(PQS).GetMethod("OnEnable", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
-        protected override void DoPatch()
+        public override void DoPatch()
         {
             var postfix = typeof(PQSPatch).GetMethod("Postfix");
             KOPMod.harmony.Patch(originalMethod, postfix: new HarmonyMethod(postfix));

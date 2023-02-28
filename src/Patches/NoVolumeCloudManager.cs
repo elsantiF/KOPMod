@@ -11,7 +11,7 @@ namespace KOPMod.Patches
             this.originalMethod = typeof(VolumeCloudManager).GetMethod("LateUpdate", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
-        protected override void DoPatch()
+        public override void DoPatch()
         {
             var transpiler = typeof(CodeGen).GetMethod("GetRet");
             KOPMod.harmony.Patch(originalMethod, transpiler: new HarmonyMethod(transpiler));
