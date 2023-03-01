@@ -8,10 +8,8 @@ namespace KOPMod.Patches
         private bool _enabled;
 
         public abstract void DoPatch();
-        public void DoUnpatch() 
-        {
-            KOPMod.harmony.Unpatch(originalMethod, HarmonyPatchType.All);
-        }
+        public void DoUnpatch() => originalMethods
+            .ForEach(method => KOPMod.harmony.Unpatch(method, HarmonyPatchType.All));
 
         public bool Enabled
         {
@@ -21,6 +19,6 @@ namespace KOPMod.Patches
 
         public abstract string GetName();
 
-        protected MethodInfo originalMethod;
+        protected List<MethodInfo> originalMethods = new List<MethodInfo>();
     }
 }

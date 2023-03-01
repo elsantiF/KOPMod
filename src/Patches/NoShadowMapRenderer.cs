@@ -8,18 +8,15 @@ namespace KOPMod.Patches
     {
         public NoShadowMapRenderer()
         {
-            this.originalMethod = typeof(ShadowMapRenderer).GetMethod("LateUpdate", BindingFlags.NonPublic | BindingFlags.Instance);
+            this.originalMethods.Add(typeof(ShadowMapRenderer).GetMethod("LateUpdate", BindingFlags.NonPublic | BindingFlags.Instance));
         }
 
         public override void DoPatch()
         {
             var transpiler = typeof(CodeGen).GetMethod("GetRet");
-            KOPMod.harmony.Patch(originalMethod, transpiler: new HarmonyMethod(transpiler));
+            KOPMod.harmony.Patch(originalMethods.ElementAt(0), transpiler: new HarmonyMethod(transpiler));
         }
 
-        public override string GetName()
-        {
-            return "NoShadowMapRenderer";
-        }
+        public override string GetName() => "NoShadowMapRenderer";
     }
 }

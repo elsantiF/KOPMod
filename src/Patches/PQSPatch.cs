@@ -8,13 +8,13 @@ namespace KOPMod.Patches
     {
         public PQSPatch()
         {
-            this.originalMethod = typeof(PQS).GetMethod("OnEnable", BindingFlags.NonPublic | BindingFlags.Instance);
+            this.originalMethods.Add(typeof(PQS).GetMethod("OnEnable", BindingFlags.NonPublic | BindingFlags.Instance));
         }
 
         public override void DoPatch()
         {
             var postfix = typeof(PQSPatch).GetMethod("Postfix");
-            KOPMod.harmony.Patch(originalMethod, postfix: new HarmonyMethod(postfix));
+            KOPMod.harmony.Patch(originalMethods.ElementAt(0), postfix: new HarmonyMethod(postfix));
         }
 
         public static void Postfix(PQS __instance)
@@ -30,9 +30,6 @@ namespace KOPMod.Patches
             __instance.settings.subdivisionInfo = subdivisionInfo;
         }
 
-        public override string GetName()
-        {
-            return "PQSPatch";
-        }
+        public override string GetName() => "PQSPatch";
     }
 }

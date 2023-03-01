@@ -4,7 +4,7 @@
     "name": "Kerbal Optimization Program",
     "description": "A simple mod to increase the performance of KSP2",
     "source": "https://github.com/elsantiF/KOPMod",
-    "version": "0.2",
+    "version": "0.3",
     "dependencies": [],
     "ksp2_version": {
         "min": "0.1",

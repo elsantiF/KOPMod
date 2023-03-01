@@ -28,12 +28,10 @@ namespace KOPMod
             patchList.AddRange(new List<BasePatch>()
             {
                 new NoAtmosphereScatterManager(),
-                new NoScaledCloudDataModelComponent(),
+                new NoClouds(),
                 new NoShadowMapRenderer(),
                 new NoThrottleVFXManager(),
                 new NoVegetationSystemPro(),
-                new NoVolumeCloudManager(),
-                new NoVolumeCloudRenderer(),
                 new PQSPatch()
             });
 
