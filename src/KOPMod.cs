@@ -18,6 +18,9 @@ namespace KOPMod
 
         private static List<BasePatch> patchList = new List<BasePatch>();
 
+        //WIP: Extract
+        private static int targetFPS = 60;
+
         public override void OnInitialized()
         {
             logger = Logger;
@@ -39,23 +42,8 @@ namespace KOPMod
 
             ApplyPatches();
 
-			//WIP: Make this optional
+            //WIP: Make this optional
             ChangeUnitySettings();
-        }
-
-        private void ChangeUnitySettings()
-        {
-            QualitySettings.SetQualityLevel(0);
-            QualitySettings.antiAliasing = 0;
-            QualitySettings.softParticles = false;
-            QualitySettings.pixelLightCount = 1;
-            QualitySettings.shadows = ShadowQuality.Disable;
-            QualitySettings.realtimeReflectionProbes = false;
-            QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
-            QualitySettings.masterTextureLimit = 2;
-
-            RenderSettings.defaultReflectionResolution = 0;
-            logger.Info("Changed Settings");
         }
 
         private void OnGUI()
@@ -66,16 +54,26 @@ namespace KOPMod
         private void DrawWindow(int id)
         {
             GUILayout.BeginVertical();
-            
+            GUILayout.Label("Patches");
             foreach(var patch in patchList)
             {
                 patch.Enabled = GUILayout.Toggle(patch.Enabled, patch.GetName());
             }
 
-            if(GUILayout.Button("Apply Patches"))
+            //WIP: Extract
+            GUILayout.Label("Unity Settings");
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("FPS Limit:");
+            targetFPS = Mathf.CeilToInt(GUILayout.HorizontalSlider((float)targetFPS, 10, 360));
+            GUILayout.Label(targetFPS.ToString());
+            GUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Apply"))
             {
                 ApplyPatches();
+                ChangeUnitySettings();
             }
+
 
             GUILayout.EndVertical();
 
@@ -95,6 +93,26 @@ namespace KOPMod
             });
 
             logger.Info("Patches Applied");
+        }
+
+        //WIP: Extract
+        private void ChangeUnitySettings()
+        {
+            QualitySettings.SetQualityLevel(0);
+            QualitySettings.antiAliasing = 0;
+            QualitySettings.softParticles = false;
+            QualitySettings.pixelLightCount = 1;
+            QualitySettings.shadows = ShadowQuality.Disable;
+            QualitySettings.realtimeReflectionProbes = false;
+            QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
+            QualitySettings.masterTextureLimit = 2;
+            QualitySettings.vSyncCount = 0;
+
+            RenderSettings.defaultReflectionResolution = 0;
+
+            Application.targetFrameRate = targetFPS;
+
+            logger.Info("Changed Settings");
         }
 
         private void Update()
