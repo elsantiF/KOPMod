@@ -7,13 +7,14 @@
     <ImplicitUsings>true</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-	<Reference Include="dep_dlls\0Harmony.dll" />
-	<Reference Include="dep_dlls\Assembly-CSharp.dll" />
-	<Reference Include="dep_dlls\NewtonSoft.Json.dll" />
+	  <Reference Include="dep_dlls\0Harmony.dll" />
+	  <Reference Include="dep_dlls\BepInEx.dll" />
+	  <Reference Include="dep_dlls\Assembly-CSharp.dll" />
+	  <Reference Include="dep_dlls\NewtonSoft.Json.dll" />
     <Reference Include="dep_dlls\SpaceWarp.dll" />
     <Reference Include="dep_dlls\UnityEngine.dll" />
     <Reference Include="dep_dlls\UnityEngine.CoreModule.dll" />
-	<Reference Include="dep_dlls\UnityEngine.IMGUIModule.dll" />
-	<Reference Include="dep_dlls\UnityEngine.InputLegacyModule.dll" />
+	  <Reference Include="dep_dlls\UnityEngine.IMGUIModule.dll" />
+	  <Reference Include="dep_dlls\UnityEngine.InputLegacyModule.dll" />
   </ItemGroup>
 </Project>

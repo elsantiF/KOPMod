@@ -17,6 +17,6 @@ namespace KOPMod.Patches
             KOPMod.harmony.Patch(originalMethods.ElementAt(0), transpiler: new HarmonyMethod(transpiler));
         }
 
-        public override string GetName() => "NoShadowMapRenderer";
+        public override string GetName() => "No Shadows Map";
     }
 }

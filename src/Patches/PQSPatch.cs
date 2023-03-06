@@ -28,8 +28,13 @@ namespace KOPMod.Patches
             PQSGlobalSettings.SubdivisionInfo subdivisionInfo = new PQSGlobalSettings.SubdivisionInfo();
             subdivisionInfo.subdivData = subdivData;
             __instance.settings.subdivisionInfo = subdivisionInfo;
+            __instance.isSubdivisionEnabled = false;
+
+            __instance.PQSRenderer.MaxSubdivision = 0;
+            __instance.PQSRenderer.OceanQualitySetting = 0;
+            __instance.PQSRenderer.EnableLowQualityLocal = true;
         }
 
-        public override string GetName() => "PQSPatch";
+        public override string GetName() => "Low Quality Terrain";
     }
 }
